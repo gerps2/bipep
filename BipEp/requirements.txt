@@ -1,0 +1,8 @@
+asgiref==3.3.1
+Django==2.1.15
+django-crispy-forms==1.10.0
+django-pyodbc-azure==2.1.0.0
+mysqlclient @ file:///C:/Users/Gerson/Documents/Aulas/Projetos/django/plataformas/projeto_todo/todo/mysqlclient-1.4.6-cp38-cp38-win32.whl
+pyodbc==4.0.30
+pytz==2020.4
+sqlparse==0.4.1
