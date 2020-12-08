@@ -1,1 +1,22 @@
-<h1>teste equipe</h1>
+{% extends 'baseEquipe.html' %}
+{% load static %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <h1 class="mt-4">Olá, Sr.(a) {{usuario.0.nome}}</h1>
+        <div class="col-lg-3 pull-right">
+                <ul class="simple-card-list mb-xlg">
+                    <li class="primary">
+                        <h3>{{usuario.0.UltimoLogin}}</h3>
+                        <p>Ultimo login</p>
+                    </li>
+                    <li class="primary">
+                        <h3 class="text-center">Mensagens</h3>
+                        <p class="text-center"><button type="submit" class="btn btn-primary mb-2"  onclick="relocate_chat()">Clique aqui</button></p>
+                    </li>
+                </ul>
+        </div>
+    </div>
+{% endblock %}

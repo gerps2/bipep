@@ -1,0 +1,108 @@
+{% extends 'baseEquipe.html' %}
+{% load static %}
+
+{% block title %}Area Medica{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <h1 class="mt-4">Acompanhamento</h1>
+    </div>
+    </br>
+    <div class="col-md-12">
+    	<section class="panel">
+    		<header class="panel-heading">
+    			<div class="panel-actions">
+    				<a href="#" class="fa fa-caret-down"></a>
+    				<a href="#" class="fa fa-times"></a>
+    			</div>  
+    			<h2 class="panel-title">Informacoes do Paciente</h2>  
+    		</header>
+    		<div class="panel-body">
+    			<div class="row">
+    				<div class="col-sm-4">
+    					<div class="form-group">
+    						<label class="control-label">ID</label>
+    						<input type="text" name="id" class="form-control" value="BIP2020-1" disabled>
+    					</div>
+    				</div>
+    				<div class="col-sm-4">
+    					<div class="form-group">
+    						<label class="control-label">Nome</label>
+    						<input type="text" name="nome" class="form-control" value="Jose da Silva" disabled>
+    					</div>
+    				</div>
+                    <div class="col-sm-4">
+    					<div class="form-group">
+    						<label class="control-label">Data de Nascimento</label>
+    						<input type="text" name="datanascimento" class="form-control" value="xx/xx/xxxx" disabled>
+    					</div>
+    				</div>
+    			</div>
+                <div class="row">
+    				<div class="col-sm-4">
+    					<div class="form-group">
+    						<label class="control-label">Idade</label>
+    						<input type="text" name="idade" class="form-control" value="xx anos xx meses xx dias" disabled>
+    					</div>
+    				</div>
+    				<div class="col-sm-4">
+    					<div class="form-group">
+    						<label class="control-label">Etnia</label>
+    						<input type="text" name="etnia" class="form-control" value="xxx" disabled>
+    					</div>
+    				</div>
+                    <div class="col-sm-4">
+    					<div class="form-group">
+    						<label class="control-label">Endereco</label>
+    						<input type="text" name="endereco" class="form-control" value="Rua X Numero Y Bairro Z" disabled>
+    					</div>
+    				</div>
+    			</div>
+                <div class="row">
+    				<div class="col-sm-4">
+    					<div class="form-group">
+    						<label class="control-label">Telefone</label>
+    						<input type="text" name="telefone" class="form-control" value="(00) 00000-0000" disabled>
+    					</div>
+    				</div>
+    				<div class="col-sm-4">
+    					<div class="form-group">
+    						<label class="control-label">Data TCE</label>
+    						<input type="text" name="datatce" class="form-control" value="xx/xx/xxxx" disabled>
+    					</div>
+    				</div>
+                    <div class="col-sm-4">
+    					<div class="form-group">
+    						<label class="control-label">Data Internacao</label>
+    						<input type="text" name="datainternacao" class="form-control" value="xx/xx/xxxx" disabled>
+    					</div>
+    				</div>
+    			</div>
+                <div class="row">
+    				<div class="col-sm-4">
+    					<div class="form-group">
+    						<label class="control-label">Data da Alta</label>
+    						<input type="text" name="dataalta" class="form-control" value="xx/xx/xxxx" disabled>
+    					</div>
+    				</div>
+    				<div class="col-sm-4">
+    					<div class="form-group">
+    						<label class="control-label">Data do Obito</label>
+    						<input type="text" name="dataobito" class="form-control" value="xx/xx/xxxx" disabled>
+    					</div>
+    				</div>
+                    <div class="col-sm-4">
+    					<div class="form-group">
+    						<label class="control-label">Sexo</label>
+    						<input type="text" name="sexo" class="form-control" value="M" disabled>
+    					</div>
+    				</div>
+    			</div>
+    		</div>
+    		<footer class="panel-footer pull-right">
+    			<button class="btn btn-primary">Atualizar Informacoes</button>
+    		</footer>
+    	</section>
+    </div>
+    </br>
+{% endblock %}
