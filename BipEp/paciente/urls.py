@@ -6,4 +6,5 @@ urlpatterns = [
     path('chat/', views.chat, name='chat'),
     path('consultas/', views.consultas, name='consultas'),
     path('exames/', views.exames, name='exames'),
+    path('consultas/editarconsulta/<int:pk>/', views.alterarConsulta, name='editar')
 ]

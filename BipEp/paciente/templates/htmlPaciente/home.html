@@ -1,4 +1,6 @@
-{% extends 'basePaciente.html' %}
+
+{% extends 'basePaciente.html'%}
+
 {% load static %}
 
 {% block title %}Home{% endblock %}
@@ -9,7 +11,7 @@
         <div class="col-lg-3 pull-right">
                 <ul class="simple-card-list mb-xlg">
                     <li class="primary">
-                        <h3>{{usuario.0.UltimoLogin}}</h3>
+                        <h3>{{last_login}}</h3>
                         <p>Ultimo login</p>
                     </li>
                     <li class="primary">
@@ -31,3 +33,5 @@ function relocate_chat()
 } 
 </script>
 {% endblock %}
+
+

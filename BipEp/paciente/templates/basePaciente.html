@@ -1,6 +1,6 @@
 {% load static %}
 <!doctype html>
-<html class="fixed">
+<html class="fixed sidebar-left-collapsed">
 	<head>
 
 		<!-- Basic -->
@@ -50,11 +50,9 @@
 			<!-- start: header -->
 			<header class="header">
 				<div class="logo-container">
-                <!--
-                	<a href="../" class="logo">
-						<img src="images/logo.png" height="35" alt="Porto Admin" />
-					</a>
-                -->
+                <a href="/" class="logo">
+						<img src="{% static 'img/logo.png' %}" height="45" />
+				</a>
 				
 					<div class="visible-xs toggle-sidebar-left" data-toggle-class="sidebar-left-opened" data-target="html" data-fire-event="sidebar-left-opened">
 						<i class="fa fa-bars" aria-label="Toggle sidebar"></i>
@@ -236,7 +234,7 @@
 										<i class="fa fa-home"></i>
 									</a>
 								</li>
-								<li><span>Home</span></li>
+								<li><span>{{name}}</span></li>
 							</ol>
 							<a class="sidebar-right-toggle"><i class="fa fa-chevron-left"></i></a>
 						</div>

@@ -16,7 +16,22 @@
                         <h3 class="text-center">Mensagens</h3>
                         <p class="text-center"><button type="submit" class="btn btn-primary mb-2"  onclick="relocate_chat()">Clique aqui</button></p>
                     </li>
+                     <li class="primary">
+                        <h3 class="text-center">Cadastrar novo Usuario</h3>
+                        <p class="text-center"><button type="submit" class="btn btn-primary mb-2"  onclick="relocate_cadastrar()">Clique aqui</button></p>
+                    </li>
                 </ul>
         </div>
     </div>
+
+<script>
+function relocate_cadastrar()
+{
+     location.href = "/equipe/cadastrar";
+}
+function relocate_chat()
+{
+     location.href = "/equipe/chat";
+} 
+</script>
 {% endblock %}

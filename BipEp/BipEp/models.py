@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth import get_user_model
+from django.contrib.auth.models import User
 
 class Consultas(models.Model):
     idconsulta = models.AutoField(db_column='idConsulta', primary_key=True)  # Field name made lowercase.
@@ -12,7 +12,10 @@ class Consultas(models.Model):
     class Meta:
         managed = False
         db_table = 'consultas'
-
+        
+        
+    def __str__(self):
+        return self.local
 
 class Exames(models.Model):
     idexame = models.AutoField(db_column='idExame', primary_key=True)  # Field name made lowercase.
@@ -24,7 +27,9 @@ class Exames(models.Model):
     class Meta:
         managed = False
         db_table = 'exames'
-
+    
+    def __str__(self):
+        return self.local
 
 class Hospitais(models.Model):
     idhospital = models.AutoField(db_column='idHospital', primary_key=True)  # Field name made lowercase.
@@ -34,6 +39,8 @@ class Hospitais(models.Model):
         managed = False
         db_table = 'hospitais'
 
+    def __str__(self):
+        return self.nome
 
 class Medico(models.Model):
     idmedico = models.AutoField(primary_key=True)
@@ -42,6 +49,10 @@ class Medico(models.Model):
     class Meta:
         managed = False
         db_table = 'medico'
+        
+        
+    def __str__(self):
+        return self.nome
 
 
 class Mensagens(models.Model):
@@ -53,6 +64,9 @@ class Mensagens(models.Model):
     class Meta:
         managed = False
         db_table = 'mensagens'
+        
+    def __str__(self):
+        return self.idmensagem
 
 
 class Permissoes(models.Model):
@@ -62,17 +76,66 @@ class Permissoes(models.Model):
     class Meta:
         managed = False
         db_table = 'permissoes'
-
+        
+    def __str__(self):
+        return self.nome
 
 class Usuario(models.Model):
     nome = models.CharField(max_length=250, blank=True, null=True)
     email = models.CharField(max_length=250, blank=True, null=True)
     senha = models.CharField(max_length=1000, blank=True, null=True)
     telefone = models.DecimalField(max_digits=11, decimal_places=0, blank=True, null=True)
-    UltimoLogin = models.DateTimeField(auto_now=True) 
     idhospital = models.ForeignKey(Hospitais, models.DO_NOTHING, db_column='idHospital', blank=True, null=True)  # Field name made lowercase.
     idpermissao = models.ForeignKey(Permissoes, models.DO_NOTHING, db_column='idPermissao', blank=True, null=True)  # Field name made lowercase.
-    
+    iduser = models.ForeignKey(User, models.DO_NOTHING, db_column='idUser', blank=True, null=True)  # Field name made lowercase.
+
     class Meta:
         managed = False
         db_table = 'usuario'
+        
+    def __str__(self):
+        return self.nome
+        
+        
+
+class Paciente(models.Model):
+    idpaciente = models.CharField(db_column='idPaciente', primary_key=True, max_length=250)  # Field name made lowercase.
+    idusuario = models.IntegerField(db_column='idUsuario', blank=True, null=True)  # Field name made lowercase.
+    dtnascimento = models.DateField(db_column='dtNascimento', blank=True, null=True)  # Field name made lowercase.
+    idetnia = models.IntegerField(db_column='idEtnia', blank=True, null=True)  # Field name made lowercase.
+    endereco = models.CharField(max_length=250, blank=True, null=True)
+    telefone = models.DecimalField(max_digits=11, decimal_places=0, blank=True, null=True)
+    dttce = models.DateField(db_column='dtTCE', blank=True, null=True)  # Field name made lowercase.
+    dtinternaco = models.DateField(db_column='dtInternaco', blank=True, null=True)  # Field name made lowercase.
+    dtalta = models.DateField(db_column='dtAlta', blank=True, null=True)  # Field name made lowercase.
+    dtobito = models.DateField(db_column='dtObito', blank=True, null=True)  # Field name made lowercase.
+    sexo = models.CharField(max_length=1, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'paciente'
+
+    def __str__(self):
+        return self.idpaciente
+
+class Legenda(models.Model):
+    idlegenda = models.IntegerField(db_column='idLegenda', primary_key=True)  # Field name made lowercase.
+    nome = models.CharField(max_length=10, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'legenda'
+        
+        
+    def __str__(self):
+        return self.nome
+        
+        
+class Estatistica(models.Model):
+    id = models.IntegerField(primary_key=True)
+    dt = models.DateField(blank=True, null=True)
+    idlegenda = models.ForeignKey('Legenda', models.DO_NOTHING, db_column='idlegenda', blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'estatistica'

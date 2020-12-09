@@ -1,0 +1,12 @@
+{% extends 'basePaciente.html' %}
+{% load static %}
+
+{% block title %}Editar Consultas{% endblock %}
+
+{% block content %}
+<form class="form-horizontal form-bordered" method="POST" >
+	{% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" class="btn btn-sucess" value="Editar Tarefa">
+</form>
+{% endblock %}

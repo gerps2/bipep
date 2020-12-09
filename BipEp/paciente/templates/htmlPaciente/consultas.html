@@ -13,22 +13,24 @@
 		<table class="table mb-none">
 			<thead>
 				<tr>
+					<th>ID</th>
 					<th>Data</th>
 					<th>Hora</th>
 					<th>Local</th>
 					<th>Medico</th>
-					<th>Acoes</th>
+					<th>Editar</th>
 				</tr>
 			</thead>
 			<tbody>
 				{% for consulta in consultas %}
 				<tr>
+					<td>#</td>
 					<td>{{consulta.data}}</td>
 					<td>{{consulta.hora}}</td>
 					<td>{{consulta.local.nome}}</td>
 					<td>{{consulta.medico.nome}}</td>
 					<td class="actions">
-						<a class="btn fa fa-pencil myBtn" title="Editar" data-toggle="modal" data-target="#consultaEdicao"></a>
+						<a class="btn fa fa-pencil myBtn" title="Editar" data-toggle="modal" onclick="relocate_edit({{consulta.idconsulta}})"></a>
 					</td>
 				</tr>
 				{% endfor %}
@@ -36,56 +38,11 @@
 		</table>
 	</div>
 </div>						
-
 </div>
-
-
-
-<!--modal de edicao de consulta-->
-<div class="modal fade" id="consultaEdicao">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-      
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h4 class="modal-title">Edicao de consulta</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
-        
-        <!-- Modal body -->
-        <div class="modal-body">
-				<form class="form-horizontal form-bordered" id="edicaoconsulta">
-					<div class="form-group">
-						<label class="col-md-3 control-label">Alterar Data</label>
-						<div class="col-md-6">
-							<div class="input-daterange input-group" data-plugin-datepicker>
-								<input type="text" class="form-control" value="03/06/2020" disabled>
-								<span class="input-group-addon">Para</span>
-								<input type="text" class="form-control" name="end">
-							</div>
-						</div>
-					</div>
-          <div class="form-group">
-						<label class="col-md-3 control-label">Horario disponivel</label>
-						<div class="col-md-6">
-							<select class="form-control input-md mb-md">
-								<option></option>
-								<option>18:30</option>
-								<option>19:30</option>
-								<option>20:30</option>
-							</select>
-						</div>
-					</div>
-				</form>
-        </div>
-        
-        <!-- Modal footer -->
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary" data-dismiss="modal">Salvar alterações</button>
-        </div>
-        
-      </div>
-    </div>
-</div>
-
+<script>
+function relocate_edit(id)
+{
+     location.href = "editarconsulta/"+ id;
+} 
+</script>
 {% endblock %}

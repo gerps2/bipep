@@ -1,3 +1,4 @@
+{% load static %}
 <!doctype html>
 <html class="fixed">
 	<head>
@@ -28,7 +29,7 @@
 		<link rel="stylesheet" href="{% static 'stylesheets/skins/default.css' %}" />
 
 		<!-- Theme Custom CSS -->
-		<link rel="stylesheet" href="{% static 'stylesheets/theme-custom.css' %}">
+		<link rel="stylesheet" href="{% static 'stylesheets/theme-custom.css' %}" />
 
 		<!-- Head Libs -->
 		<script src="{% static 'vendor/modernizr/modernizr.js' %}"></script>
@@ -39,71 +40,69 @@
 		<section class="body-sign">
 			<div class="center-sign">
 				<a href="/" class="logo pull-left">
-					<img src="assets/images/logo.png" height="54" alt="Porto Admin" />
+					<!--<img src="assets/images/logo.png" height="54" alt="Porto Admin" />-->
 				</a>
 
 				<div class="panel panel-sign">
 					<div class="panel-title-sign mt-xl text-right">
-						<h2 class="title text-uppercase text-bold m-none"><i class="fa fa-user mr-xs"></i> Sign In</h2>
+						<h2 class="title text-uppercase text-bold m-none"><i class="fa fa-user mr-xs"></i>Cadastrar</h2>
 					</div>
 					<div class="panel-body">
-						<form action="index.html" method="post">
+						<form>
 							<div class="form-group mb-lg">
-								<label>Username</label>
-								<div class="input-group input-group-icon">
-									<input name="username" type="text" class="form-control input-lg" />
-									<span class="input-group-addon">
-										<span class="icon icon-lg">
-											<i class="fa fa-user"></i>
-										</span>
-									</span>
-								</div>
+								<label>Nome</label>
+								<input name="nome" type="text" class="form-control input-lg" />
 							</div>
 
 							<div class="form-group mb-lg">
-								<div class="clearfix">
-									<label class="pull-left">Password</label>
-									<a href="pages-recover-password.html" class="pull-right">Lost Password?</a>
-								</div>
-								<div class="input-group input-group-icon">
-									<input name="pwd" type="password" class="form-control input-lg" />
-									<span class="input-group-addon">
-										<span class="icon icon-lg">
-											<i class="fa fa-lock"></i>
-										</span>
-									</span>
-								</div>
+								<label>Endereco de E-Mail</label>
+								<input name="email" type="email" class="form-control input-lg" />
 							</div>
 
-							<div class="row">
-								<div class="col-sm-8">
-									<div class="checkbox-custom checkbox-default">
-										<input id="RememberMe" name="rememberme" type="checkbox"/>
-										<label for="RememberMe">Remember Me</label>
+							<div class="form-group mb-none">
+								<div class="row">
+									<div class="col-sm-6 mb-lg">
+										<label>Senha</label>
+										<input name="Senha" type="password" class="form-control input-lg" />
+									</div>
+									<div class="col-sm-6 mb-lg">
+										<label>Confirmacao de Senha</label>
+										<input name="senhaConfirmacao" type="password" class="form-control input-lg" />
 									</div>
 								</div>
-								<div class="col-sm-4 text-right">
-									<button type="submit" class="btn btn-primary hidden-xs">Sign In</button>
-									<button type="submit" class="btn btn-primary btn-block btn-lg visible-xs mt-lg">Sign In</button>
+							</div>
+
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Permissao:</label>
+									<div class="col-sm-9">
+										<div class="radio-custom radio-primary radio-inline">
+											<input id="paciente" name="paciente" type="radio" value="3" required />
+											<label for="paciente" class="control-label" >Paciente</label>
+										</div>
+										<div class="radio-custom radio-primary radio-inline">
+											<input id="equipe" name="equipe" type="radio" value="2" />
+											<label for="equipe" class="control-label mx-auto">Equipe</label>
+										</div>
+										<div class="radio-custom radio-primary radio-inline">
+											<input id="admin" name="admin" type="radio" value="1" />
+											<label for="admin" class="control-label mx-auto" >Admin</label>
+										</div>
+										<label class="error" for="porto_is"></label>
+									</div>
+							</div>
+							</br>
+							<div class="form-group">
+								<div class="col-sm-4 pull-right">
+									<button type="submit" class="btn btn-primary hidden-xs">Sign Up</button>
+									<button type="submit" class="btn btn-primary btn-block btn-lg visible-xs mt-lg">Sign Up</button>
 								</div>
+								<p class="pull-left"> Voltar para a <a href="/equipe/home">Home</a>
 							</div>
-
-							<span class="mt-lg mb-lg line-thru text-center text-uppercase">
-								<span>or</span>
-							</span>
-
-							<div class="mb-xs text-center">
-								<a class="btn btn-facebook mb-md ml-xs mr-xs">Connect with <i class="fa fa-facebook"></i></a>
-								<a class="btn btn-twitter mb-md ml-xs mr-xs">Connect with <i class="fa fa-twitter"></i></a>
-							</div>
-
-							<p class="text-center">Don't have an account yet? <a href="pages-signup.html">Sign Up!</a>
-
-						</form>
+ 						</form>
 					</div>
 				</div>
 
-				<p class="text-center text-muted mt-md mb-md">&copy; Copyright 2014. All Rights Reserved.</p>
+				<p class="text-center text-muted mt-md mb-md">&copy; Copyright 2020. All Rights Reserved.</p>
 			</div>
 		</section>
 		<!-- end: page -->
@@ -118,13 +117,13 @@
 		<script src="{% static 'vendor/jquery-placeholder/jquery.placeholder.js' %}"></script>
 		
 		<!-- Theme Base, Components and Settings -->
-		<script src="{% static 'assets/javascripts/theme.js' %}"></script>
+		<script src="{% static 'javascripts/theme.js' %}"></script>
 		
 		<!-- Theme Custom -->
-		<script src="{% static 'assets/javascripts/theme.custom.js' %}"></script>
+		<script src="{% static 'javascripts/theme.custom.js' %}"></script>
 		
 		<!-- Theme Initialization Files -->
-		<script src="{% static 'assets/javascripts/theme.init.js' %}"></script>
+		<script src="{% static 'javascripts/theme.init.js' %}"></script>
 
 	</body>
 </html>
