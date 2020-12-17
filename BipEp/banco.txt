@@ -1,0 +1,326 @@
+Create database BipEp
+use BipEp
+
+create table Hospitais(
+idHospital int AUTO_INCREMENT primary key,
+nome varchar(250)
+);
+
+create table Permissoes(
+idPermissao int AUTO_INCREMENT primary key,
+nome varchar(250)
+);
+
+create table Mensagens(
+idMensagem int AUTO_INCREMENT primary key,
+conteudoMensagem varchar(1000),
+horaMensagem datetime,
+idPermissao int
+);
+
+drop table Usuario
+create table Usuario(
+id int AUTO_INCREMENT primary key,
+nome varchar(250),
+email varchar(250),
+senha varchar(1000),
+telefone numeric(11),
+idHospital int,
+idPermissao int,
+idUser int,
+foreign key (idUser) references auth_user(id),
+FOREIGN KEY(idHospital) REFERENCES Hospitais(idHospital),
+FOREIGN KEY(idPermissao) REFERENCES Permissoes(idPermissao)
+);
+
+create table Medico(
+idmedico int AUTO_INCREMENT primary key,
+nome varchar(250)
+);
+
+create table Consultas(
+idConsulta int AUTO_INCREMENT primary key,
+idUsuario int,
+foreign key(idUsuario) references usuario(id),
+data date,
+hora time,	
+local int,
+foreign key(local) references hospitais(idHospital),
+medico int,
+foreign key(medico) references medico(idmedico)
+);
+
+create table Exames(
+idExame int AUTO_INCREMENT primary key,
+idUsuario int,
+foreign key(idUsuario) references usuario(id),
+data date,
+hora time,	
+local int,
+foreign key(local) references hospitais(idHospital)
+);
+
+
+
+insert into Hospitais(nome) values('Hospital Geral');
+insert into Permissoes(nome) values('Admin');
+insert into Usuario(nome, email, senha, telefone, idhospital, idpermissao) values ('Gerson Prudencio dos Santos', 'gerson.xbox123@hotmail.com', 'gerson1225', 15981775107, 1, 1);
+select * from Usuario
+select * from Consultas where idUsario  2
+drop table consultas
+use BipEp
+select * from auth_user
+
+
+select * from permissoes
+select * from Consultas
+
+
+show tables
+select * from auth_permission
+
+select * 
+
+update usuario
+set idPermissao = 2
+where id = 2
+
+select * from Auth_user
+
+alter table usuario add column idAuth int
+
+ALTER TABLE usuario ADD CONSTRAINT id_fk_user
+FOREIGN KEY(idAuth) REFERENCES auth_user (id);
+
+
+alter table usuario  drop foreign key id_fk_user
+alter table usuario drop column idAuth
+
+drop database BipEp
+
+use BipEp
+show tables
+
+select * from Consultas
+
+
+
+
+create table Paciente(
+idPaciente varchar(250) primary key,
+idUsuario int,
+dtNascimento date,
+idEtnia int,
+endereco varchar(250),
+telefone numeric(11),
+dtTCE date,
+dtInternaco date,
+dtAlta date,
+dtObito date,
+sexo enum("M","F")
+)
+
+drop table estatistica
+
+Create table estatistica(
+	id int AUTO_INCREMENT primary key,
+	dt date,
+    idLegenda int,
+	foreign key(idLegenda) references legenda(idLegenda)
+)
+
+create table legenda(
+	idLegenda int primary key,
+	nome varchar(10)
+)
+
+create table areasEquipe(
+idArea int AUTO_INCREMENT primary key,
+nome varchar(50)
+)
+
+create table Usuario(
+id int AUTO_INCREMENT primary key,
+nome varchar(250),
+email varchar(250),
+senha varchar(1000),
+telefone numeric(11),
+idHospital int,
+idPermissao int,
+idUser int,
+foreign key (idUser) references auth_user(id),
+FOREIGN KEY(idHospital) REFERENCES Hospitais(idHospital),
+FOREIGN KEY(idPermissao) REFERENCES Permissoes(idPermissao)
+);
+
+use BipEp
+alter table Usuario add column isEquipe bit default false
+
+alter table Usuario add column areaEquipe int default null
+
+use BipEP
+select * from Hospitais
+insert into consultas(idUsuario, data, hora, local) values(1, '2020-12-13' ,'18:35', 2)
+select * from exames
+insert into exames(idUsuario, data, hora, local) values(1, '2020-12-13' ,'18:35', 2)
+select * from consultas
+
+delete  from consultas 
+where idconsulta = 14
+
+
+select * from paciente
+select * from etnia
+
+
+create table etnia(
+idetnia int AUTO_INCREMENT primary key,
+nome varchar(50)
+)
+
+ALTER TABLE paciente
+ADD FOREIGN KEY (idEtnia) REFERENCES etnia(idetnia);
+
+delete from paciente
+where idusuario = 8
+
+
+select * from hospitais; 
+select * from usuario;
+select * from medicos ;
+select * from consultas;
+
+insert into consultas(idusuario, data, hora, local, medico) values(9, '2020-12-15', '18:30', 2, 3)
+select * from consultas
+select * from hospitais
+
+create table areaEquipe()
+
+select * from permissoes
+
+
+create table hospital(
+idHospital int AUTO_INCREMENT primary key,
+nome varchar(250)
+);
+
+create table permissoes(
+idPermissao int AUTO_INCREMENT primary key,
+nome varchar(250)
+);
+
+create table mensagens(
+idMensagem int AUTO_INCREMENT primary key,
+conteudoMensagem varchar(1000),
+horaMensagem datetime,
+idPermissao int
+);
+
+
+
+create table consultas(
+idConsulta int AUTO_INCREMENT primary key,
+idUsuario int,
+foreign key(idUsuario) references usuario(id),
+data date,
+hora time,	
+local varchar(50),
+medico varchar(100)
+)
+
+select * from usuario
+
+insert into consultas(idUsuario, data, hora, local, medico)
+values(2, '2020-12-06', '18:30', 'Hospital das Clinicas', 'Dr. Gerson Prudencio dos Santos')
+
+insert into consultas(idUsuario, data, hora, local, medico)
+values(2, '2020-12-12', '19:30', 'Hospital das Clinicas', 'Dr. Gerson Prudencio dos Santos')
+
+
+create table usuario(
+id int AUTO_INCREMENT primary key,
+nome varchar(250),
+email varchar(250),
+senha varchar(1000),
+telefone numeric(11),
+idHospital int,
+idPermissao int,
+FOREIGN KEY(idHospital) REFERENCES hospistal(idHospital),
+FOREIGN KEY(idPermissao) REFERENCES permissoes(idPermissao)
+);
+
+insert into usuario(nome, email, senha, telefone, idHospital, idPermissao)
+values ('gerson prudencio dos santos', 'gerson.xbox123@hotmail.com', 'teste123', 15981775107, 1, 1)
+
+
+
+insert into hospital(nome) values ('Hospital das Clinicas')
+
+
+insert into permissoes(nome) values ('admin')
+insert into permissoes(nome) values ('medico')
+
+
+select * from hospital
+
+show tables
+
+select * from hospistal
+
+
+select* from consultas
+use BipEp;
+select * from Paciente;
+
+ALTER TABLE hospistal
+  RENAME TO hospital;
+  
+  select * from Usuario
+
+
+  use BipEp;
+insert into estatistica(dt, idlegenda) values('2020-01-01', 1);
+insert into estatistica(dt, idlegenda) values('2020-02-01', 1);
+insert into estatistica(dt, idlegenda) values('2020-03-01', 1);
+insert into estatistica(dt, idlegenda) values('2020-04-01', 1);
+insert into estatistica(dt, idlegenda) values('2020-05-01', 1);
+insert into estatistica(dt, idlegenda) values('2020-06-01', 1);
+insert into estatistica(dt, idlegenda) values('2020-07-01', 1);
+insert into estatistica(dt, idlegenda) values('2020-08-01', 1);
+insert into estatistica(dt, idlegenda) values('2020-09-01', 1);
+
+use BipEp;
+insert into estatistica(dt, idlegenda) values('2020-01-01', 2); 
+insert into estatistica(dt, idlegenda) values('2020-02-01', 2); 
+insert into estatistica(dt, idlegenda) values('2020-03-01', 2); 
+insert into estatistica(dt, idlegenda) values('2020-04-01', 2); 
+insert into estatistica(dt, idlegenda) values('2020-05-01', 2); 
+insert into estatistica(dt, idlegenda) values('2020-06-01', 2); 
+insert into estatistica(dt, idlegenda) values('2020-07-01', 2); 
+insert into estatistica(dt, idlegenda) values('2020-08-01', 2);
+insert into estatistica(dt, idlegenda) values('2020-09-01', 2);
+
+
+use BipEp;
+insert into estatistica(dt, idlegenda) values('2020-01-01', 3);
+insert into estatistica(dt, idlegenda) values('2020-02-01', 3);
+insert into estatistica(dt, idlegenda) values('2020-03-01', 3);
+insert into estatistica(dt, idlegenda) values('2020-04-01', 3);
+insert into estatistica(dt, idlegenda) values('2020-05-01', 3);
+insert into estatistica(dt, idlegenda) values('2020-06-01', 3);
+insert into estatistica(dt, idlegenda) values('2020-07-01', 3);
+insert into estatistica(dt, idlegenda) values('2020-08-01', 3);
+insert into estatistica(dt, idlegenda) values('2020-09-01', 3);
+
+
+use BipEp;
+insert into estatistica(dt, idlegenda) values('2020-01-01', 4);
+insert into estatistica(dt, idlegenda) values('2020-02-01', 4);
+insert into estatistica(dt, idlegenda) values('2020-03-01', 4);
+insert into estatistica(dt, idlegenda) values('2020-04-01', 4);
+insert into estatistica(dt, idlegenda) values('2020-05-01', 4);
+insert into estatistica(dt, idlegenda) values('2020-06-01', 4);
+insert into estatistica(dt, idlegenda) values('2020-07-01', 4);
+insert into estatistica(dt, idlegenda) values('2020-08-01', 4);
+insert into estatistica(dt, idlegenda) values('2020-09-01', 4);
+ 
