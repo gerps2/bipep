@@ -1,4 +1,5 @@
 {% load static %}
+
 <!doctype html>
 <html class="fixed">
 	<head>
@@ -34,9 +35,27 @@
 		<!-- Head Libs -->
 		<script src="{% static 'vendor/modernizr/modernizr.js' %}"></script>
 
+
 	</head>
 	<body>
 		<!-- start: page -->
+		{% if cadastrado == True %}
+		<div class="col-md-6 col-md-offset-3 text-center margin-top">
+			<div class="form-group ">
+					<div class="alert alert-info fade in nomargin">
+						<button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+						<h4>Sucesso!</h4>
+						<p>Usuario cadastro com sucesso.</p>
+						<p>
+							<button class="btn btn-info mt-xs mb-xs" type="button">Voltar para home</button>
+							<button class="btn btn-default mt-xs mb-xs" type="button">Cadastrar novo usuario</button>
+						</p>
+					</div>
+			</div>
+		</div>
+		{% elif cadastrado == True and equipe == True %}
+		<h1 class="text-center">Adicionar Informacoes equipe</h1>
+		{% else %}
 		<section class="body-sign">
 			<div class="center-sign">
 				<a href="/" class="logo pull-left">
@@ -48,15 +67,21 @@
 						<h2 class="title text-uppercase text-bold m-none"><i class="fa fa-user mr-xs"></i>Cadastrar</h2>
 					</div>
 					<div class="panel-body">
-						<form>
+						<form action='/cadastrar/' method="POST">
+							{% csrf_token %}
 							<div class="form-group mb-lg">
-								<label>Nome</label>
-								<input name="nome" type="text" class="form-control input-lg" />
+								<label>Nome Completo</label>
+								<input name="nome" type="text" class="form-control input-lg" required />
 							</div>
 
 							<div class="form-group mb-lg">
 								<label>Endereco de E-Mail</label>
-								<input name="email" type="email" class="form-control input-lg" />
+								<input name="email" type="email" class="form-control input-lg" required/>
+							</div>
+
+							<div class="form-group mb-lg">
+								<label>Login</label>
+								<input id="login" name="login" type="text" class="form-control input-lg" required />
 							</div>
 
 							<div class="form-group mb-none">
@@ -71,32 +96,61 @@
 									</div>
 								</div>
 							</div>
+							<div class="form-group mb-none">
 
-							<div class="form-group">
-								<label class="col-sm-3 control-label">Permissao:</label>
-									<div class="col-sm-9">
-										<div class="radio-custom radio-primary radio-inline">
-											<input id="paciente" name="paciente" type="radio" value="3" required />
-											<label for="paciente" class="control-label" >Paciente</label>
-										</div>
-										<div class="radio-custom radio-primary radio-inline">
-											<input id="equipe" name="equipe" type="radio" value="2" />
-											<label for="equipe" class="control-label mx-auto">Equipe</label>
-										</div>
-										<div class="radio-custom radio-primary radio-inline">
-											<input id="admin" name="admin" type="radio" value="1" />
-											<label for="admin" class="control-label mx-auto" >Admin</label>
-										</div>
-										<label class="error" for="porto_is"></label>
+								<div class="row">
+									<div class="col-sm-6 mb-lg">
+										<label >Hospital</label>
+										<select id="hospital" class="form-control" required>
+											<option value="">Escolha o Hospital</option>
+											{% for hospital in hospitais %}
+											<option value="{{hospital.idhospital}}">{{hospital.nome}}</option>
+											{% endfor %}
+										</select>
+										<label class="error" for="company"></label>
 									</div>
+									
+									<div class="form-group">
+										<label class="col-sm-3 control-label">Permisao</label>
+										<div class="col-sm-6 mb-lg">
+											<div class="radio-custom radio-primary">
+												<input id="awesome" name="permissao" type="radio" value="2" required />
+												<label for="awesome">Administrador</label>
+											</div>
+											<div class="radio-custom radio-primary">
+												<input id="very-awesome" name="permissao" type="radio" value="3" />
+												<label for="very-awesome">Equipe Hospital</label>
+											</div>
+											<div class="radio-custom radio-primary">
+												<input id="ultra-awesome" name="permissao" type="radio" value="4" />
+												<label for="ultra-awesome">Paciente Hospital</label>
+											</div>
+											<label class="error" for="porto_is"></label>
+										</div>
+									</div>
+								</div>
+								{% if permissao == 2 %}
+								<div class="row">
+									<div class="col-sm-6 mb-lg">
+										<label >Hospital</label>
+										<select id="company" class="form-control" required>
+											<option value="">Escolha a Area</option>
+											{% for area in areas %}
+											<option name="hospital" value="{{area.idarea}}">{{area.nome}}</option>
+											{% endfor %}
+										</select>
+										<label class="error" for="company"></label>
+									</div>
+								</div>
+								{% endif %}
 							</div>
+							
 							</br>
 							<div class="form-group">
 								<div class="col-sm-4 pull-right">
-									<button type="submit" class="btn btn-primary hidden-xs">Sign Up</button>
-									<button type="submit" class="btn btn-primary btn-block btn-lg visible-xs mt-lg">Sign Up</button>
+									<button type="submit" class="btn btn-primary hidden-xs">Cadastrar</button>
 								</div>
-								<p class="pull-left"> Voltar para a <a href="/equipe/home">Home</a>
+								<p class="pull-left"> Voltar para a <a href="/">Home</a>
 							</div>
  						</form>
 					</div>
@@ -105,6 +159,7 @@
 				<p class="text-center text-muted mt-md mb-md">&copy; Copyright 2020. All Rights Reserved.</p>
 			</div>
 		</section>
+		{% endif %}
 		<!-- end: page -->
 
 		<!-- Vendor -->
@@ -126,4 +181,7 @@
 		<script src="{% static 'javascripts/theme.init.js' %}"></script>
 
 	</body>
+
+
+
 </html>

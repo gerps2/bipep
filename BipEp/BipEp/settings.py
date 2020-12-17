@@ -29,7 +29,14 @@ INSTALLED_APPS = [
     'paciente',
     'home',
     'BipEp',
+    'rest_framework',
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -39,6 +46,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware' , 
+    'django_session_timeout.middleware.SessionTimeoutMiddleware',
 ]
 
 ROOT_URLCONF = 'BipEp.urls'
@@ -65,15 +74,15 @@ WSGI_APPLICATION = 'BipEp.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
-DATABASES = { 
-    'default': { 
-        'ENGINE': 'django.db.backends.mysql', 
-        'NAME': 'BipEp', 
-        'USER': 'bip_user', 
-        'PASSWORD': '@KKxbox1225', 
-        'HOST': 'localhost', 
-        'PORT': '3306', 
-    } 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'BipEp',
+        'USER': 'bip_user',
+        'PASSWORD': '@KKxbox1225',
+        'HOST': '192.168.80.1',
+        'PORT': 3306,
+    }
 }
 
 
@@ -115,7 +124,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
-
-
+SESSION_EXPIRE_AFTER_LAST_ACTIVITY_GRACE_PERIOD  =  1
+SESSION_TIMEOUT_REDIRECT  =  '/accounts/login'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/accounts/login'

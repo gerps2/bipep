@@ -1,6 +1,9 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
 
 
 def logar(request):
@@ -11,3 +14,4 @@ def logar(request):
         login(request, user)
     else:
         print('nao foi dessa vez')
+        

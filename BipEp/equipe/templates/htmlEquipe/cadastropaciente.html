@@ -1,0 +1,156 @@
+{% extends 'baseEquipe.html' %}
+{% load static %}
+
+{% block title %}Cadastrar Paciente{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="panel-body">
+        <div class="col-lg-12">
+            <section class="panel">
+                <header class="panel-heading">
+                    <div class="panel-actions">
+                        <a href="#" class="fa fa-caret-down"></a>
+                        <a href="#" class="fa fa-times"></a>
+                    </div>
+    
+                    <h2 class="panel-title">Cadastro de paciente</h2>
+                </header>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="inputDefault">Usuario</label>
+                        <div class="col-md-6">
+                            <select id="usuarios" class="form-control"  required>
+                                <option>Selecione o Usuario do Paciente</option>
+                            </select>
+                        </div>
+                    </div>
+                
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="inputDefault">Data de Nascimento</label>
+                        <div class="col-md-6">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </span>
+                                <input type="text" id="dtnascimento" data-plugin-datepicker class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="inputDefault">Etnia</label>
+                        <div class="col-md-6">
+                            <select id="etnia" class="form-control"  required>
+                                <option>Selecione a etnia do paciente</option>
+                            </select>
+                        </div>
+                    </div>
+                
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="inputHelpText">Endereco</label>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" id="endereco">
+                        </div>
+                    </div>
+                
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Telefone</label>
+                        <div class="col-md-6 control-label">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-phone"></i>
+                                </span>
+                                <input id="telefone" data-plugin-masked-input data-input-mask="(99) 99999-9999" placeholder="(00) 00000-0000" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="inputDefault">Sexo</label>
+                        <div class="col-md-6">
+                            <select id="sexo" class="form-control"  required>
+                                <option>Selecione o Sexo do Paciente</option>
+                                <option id="sexo" value="M">Masculino</option>
+                                <option id="sexo" value="F">Feminino</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                <footer class="panel-footer">
+                    <div class="row">
+                        <div class="col-sm-9 col-sm-offset-3">
+                            <button type="button" id="cadastrarPaciente" class="btn btn-primary">Cadastrar</button>
+                        </div>
+                    </div>
+                </footer>
+            </section>
+        </div>
+</div>
+
+<script>
+$(document).ready(function() {
+    $.ajax({
+    	url: '/equipe/usuarios',
+    	type: 'get',
+    	success: function(data) {
+			$.each(data, function(indice, usuario){
+				$("#usuarios").append('<option id="usuariovalores" name="usuariovalores" value="' + usuario.pk + '" slected="selected">' + usuario.fields.nome  + '</option>');				
+			})
+			$('#selectHospital').prop("disabled", false);
+    },
+    failure: function(data) { 
+        alert('erro');
+    }
+}); 
+$.ajax({
+    	url: '/equipe/etnias',
+    	type: 'get',
+    	success: function(data) {
+			$.each(data, function(indice, etnias){
+				$("#etnia").append('<option id="etniavalores" name="etniavalores" value="' + etnias.pk + '" slected="selected">' + etnias.fields.nome  + '</option>');				
+			})
+			$('#selectHospital').prop("disabled", false);
+    },
+    failure: function(data) { 
+        alert('erro');
+    }
+}); 
+});
+
+$('#cadastrarPaciente').click(
+    function () {
+        var idusuario = $("#usuarios option:selected").val();
+        console.log(idusuario)
+        var dtnascimento = $("#dtnascimento").val();
+        console.log(dtnascimento)
+        var idetnia = $("#etnia option:selected").val()
+        console.log(idetnia)
+        var endereco = $("#endereco").val();
+        console.log(endereco)
+        var telefone = $("#telefone").val();
+        console.log(telefone)
+        var sexo = $("#sexo option:selected").val();
+        console.log(sexo)
+		$.ajax({
+            url: '/equipe/cadastrarpaciente/',
+            type: 'post',
+            data: JSON.stringify({"idusuario": idusuario, 
+            "dtnascimento": dtnascimento,
+            "idetnia": idetnia,
+            "endereco" : endereco,
+            "telefone" : telefone,
+            "sexo" : sexo}),
+            success: function(data) {
+                console.log("cadastrado");
+                location.reload();
+    },
+    failure: function(data) { 
+        console.log("deu erro");
+        location.reload();
+    }
+}); 	
+});
+</script>
+{% endblock %}

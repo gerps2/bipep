@@ -150,11 +150,17 @@
 					<div id="userbox" class="userbox">
 						<a href="#" data-toggle="dropdown">
 							<figure class="profile-picture">
-								<img src="images/!logged-user.jpg" alt="Joseph Doe" class="img-circle" data-lock-picture="images/!logged-user.jpg" />
+								<img src="{% static 'img/user-logo.png' %}" alt="Joseph Doe" class="img-circle" data-lock-picture="images/!logged-user.jpg" />
 							</figure>
 							<div class="profile-info" data-lock-name="John Doe" data-lock-email="johndoe@okler.com">
-								<span class="name">John Doe Junior</span>
-								<span class="role">administrator</span>
+								<span class="name">{{nome}}</span>
+								{% if permissao == 2 %}
+								<span class="role">Administrador</span>
+								{% elif permissao == 3 %}
+								<span class="role">Paciente</span>
+								{% elif permissao == 4 %}
+								<span class="role">Equipe</span>
+								{% endif %}
 							</div>
 			
 							<i class="fa custom-caret"></i>
@@ -214,6 +220,9 @@
 											</li>
 											<li>
 												<a href="/paciente/exames">Agendamento Exame</a>
+											</li>
+											<li>
+												<a href="/paciente/examesconsulta">Exames</a>
 											</li>
 										</ul>
 									</li>

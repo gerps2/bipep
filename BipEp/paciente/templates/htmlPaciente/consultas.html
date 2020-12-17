@@ -25,12 +25,12 @@
 				{% for consulta in consultas %}
 				<tr>
 					<td>#</td>
-					<td>{{consulta.data}}</td>
+					<td id="datamodal{{consulta.idconsulta}}" value="{{consulta.data}}">{{consulta.data}}</td>
 					<td>{{consulta.hora}}</td>
 					<td>{{consulta.local.nome}}</td>
 					<td>{{consulta.medico.nome}}</td>
 					<td class="actions">
-						<a class="btn fa fa-pencil myBtn" title="Editar" data-toggle="modal" onclick="relocate_edit({{consulta.idconsulta}})"></a>
+						<a class="btn fa fa-pencil myBtn" title="Editar" data-toggle="modal" data-target="#exampleModal" onclick="getdados({{consulta.idconsulta}})"></a>
 					</td>
 				</tr>
 				{% endfor %}
@@ -39,10 +39,121 @@
 	</div>
 </div>						
 </div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title" id="exampleModalLabel">Editar Consulta</h5>
+		  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		  </button>
+		</div>
+		<div class="modal-body">
+			<form action='salvar/' method="POST">
+				{% csrf_token %}
+				<div class="form-group">
+					<label class="col-md-1">Data</label>
+					<div class="col-md-6">
+						<div class="input-group" >
+							<span class="input-group-addon">
+								<i class="fa fa-calendar"></i>
+							</span>
+							<input type="text" id="datainicial"class="form-control" name="datainicial" disabled>
+							<span class="input-group-addon">Para</span>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="input-group">
+							<select id="dataNova" class="form-control"  required>
+								<option id="" value="">Disponiveis</option>
+							</select>
+						</div>
+					</div>
+					<div class="col-md-1">
+						<div class="input-group">
+							<button type="button" class="btn btn-secondary" id="hide">Datas</button>
+						</div>
+					</div>
+					<div id="d-none rightMenu">
+						<div class="col-sm-6 mb-lg">
+							<label >Horarios disponiveis</label>
+							<select id="selectHospital" class="form-control" required disabled>
+								<option value="">Escolha o horario</option>
+							</select>
+							<label class="error" for="company"></label>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" id="teste1" class="btn btn-primary">Salvar Alteracoes</button>
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+				</div>
+			</form>
+		</div>
+	  </div>
+	</div>
+  </div>
+
 <script>
-function relocate_edit(id)
-{
-     location.href = "editarconsulta/"+ id;
-} 
+	function getdados(valor) {
+		var data = $("#datamodal"+valor).text();
+		$("#datainicial").val(data);
+
+		$.ajax({
+    	url: '/paciente/datas/',
+    	type: 'get',
+    	success: function(data) {
+			$.each(data, function(indice, datas){
+				$("#dataNova").append('<option name="novadata" value="' + datas.data + '" slected="selected">' + datas.data + '</option>');				
+			})
+			$('#selectHospital').prop("disabled", false);
+    },
+    failure: function(data) { 
+    }
+}); 
+
+
+$('#hide').click(
+    function () {
+		$("#selectHospital").empty();
+		var dataNova = $("#dataNova option:selected").val();
+		console.log(dataNova)
+		$.ajax({
+    	url: '/paciente/horarios/' + dataNova,
+    	type: 'get',
+    	success: function(data) {
+			$.each(data, function(indice, horarios){
+				$("#selectHospital").append('<option name="novohorario" value="' + horarios.hora + '" slected="selected">' + horarios.hora + '</option>');				
+			})
+			$('#selectHospital').prop("disabled", false);
+    },
+    failure: function(data) { 
+        alert('erro');
+    }
+}); 	
+});
+
+$("#teste1").click(
+    function () {
+	var novaData = $("#dataNova option:selected").val();
+	var novoHorario =  $("#selectHospital option:selected").val();
+	var id = valor;
+
+	$.ajax({
+    	url: '/paciente/salvarconsultas/',
+		type: 'post',
+		contentType: "application/json",
+		data: JSON.stringify({"id": id, "novaData": novaData,"horarioNovo": novoHorario}),
+    	success: function(data) {
+			console.log("sucesso");
+			$('#exampleModal').modal('hide'); 
+			location.reload();
+    },
+    failure: function(data) { 
+        alert('erro');
+    }
+}); 	
+});}
 </script>
 {% endblock %}

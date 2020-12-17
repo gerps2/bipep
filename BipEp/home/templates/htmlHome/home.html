@@ -4,4 +4,125 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
+<div class="inner-toolbar clearfix">
+    <ul>
+        <li class="right">
+            <ul class="nav nav-pills nav-pills-primary">
+                {% if permissao == 2 %}
+                    <li>
+                        <label>Acessar Area</label>
+                    </li>
+                    <li class="active">
+                        <button type="submit" class="mb-xs mt-xs mr-xs btn btn-default" onclick="relocate_paciente()">Paciente</button>
+                    </li>
+                    <li>
+                        <button type="submit" class="mb-xs mt-xs mr-xs btn btn-default" onclick="relocate_equipe()">Equipe</button>
+                    </li>
+                    <li>
+                        <button type="submit" class="mb-xs mt-xs mr-xs btn btn-default" onclick="relocate_admin()">Admin</button>
+                    </li>
+                    <li>
+                        <button type="submit" class="mb-xs mt-xs mr-xs btn btn-default" onclick="relocate_cadastrar()">Cadastrar Usuario</button>
+                    </li>
+                {% elif permissao == 3 %}
+                <li>
+                    <label>Acessar Area</label>
+                </li>
+                <li class="active">
+                    <button type="submit" class="mb-xs mt-xs mr-xs btn btn-default" onclick="relocate_paciente()">Paciente</button>
+                </li>
+                {% elif permissao == 4 %}
+                <li>
+                    <label>Acessar Area</label>
+                </li>
+                <li>
+                    <button type="submit" class="mb-xs mt-xs mr-xs btn btn-default" onclick="relocate_equipe()">Equipe</button>
+                </li>
+                {% endif %}
+            </ul>
+        </li>
+    </ul>
+</div>
+
+{% if permissao == 2 %}
+<br>
+<h1 class="mt-4">Olá, Admin <br>
+    <h1>{{nome}}</h1>
+</h1>
+{% elif permissao == 3 %}
+<br>
+<h1 class="mt-4">Olá, Paciente <br>
+    <h1>{{nome}}</h1>
+    <h2 class="text-center  text-primary">Agradecemos a sua participacao no projeto!</h2>
+</h1>
+{% elif permissao == 4 %}
+<br>
+<h1 class="mt-4">Olá, Usuario <br>
+    <h1>{{nome}}</h1>
+</h1>
+{% endif %}
+<br>
+<br>
+<div class="col-md-4">
+    <div class="col-md-3">
+        <img src="{% static 'img/simbolo.png' %}" height="200">
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-md-3 control-label" for="inputDefault">Teste</label>
+    <div class="col-md-6">
+        <input type="text" class="form-control" id="teste">
+    </div>
+    <button id="enviar" type="button" class="btn btn-primary">enviar </button>
+</div>
+<script>
+    function relocate_admin()
+    {
+         location.href = "/admin";
+    } 
+    function relocate_paciente()
+    {
+         location.href = "/paciente/home";
+    }
+    function relocate_equipe()
+    {
+         location.href = "/equipe/home";
+    } 
+    function relocate_cadastrar()
+    {
+         location.href = "/cadastrar";
+    } 
+</script>
+<div class="col-md-4 col-md-offset-4">
+    <footer class="footer navbar-fixed-bottom pull-right">
+        <div class="row">
+            <div class="col-md-3 pull-right">
+                <img src="{% static 'img/fapesp.png' %}" height="45">
+                <img src="{% static 'img/cnpq.png' %}" height="65">
+                <img src="{% static 'img/ministerio.png' %}" style="margin-bottom: 10px;" height="70">
+            </div>
+        </div>
+    </footer>        
+</div>
+
+
+<script>
+$('#enviar').click(
+    function () {
+		var valor = $("#teste").val();
+		console.log(valor)
+		$.ajax({
+    	url: '/etnia/',
+        type: 'post',
+        data: JSON.stringify({"nome":valor }),
+    	success: function(data) {
+            $('#teste').prop("disabled", true);
+            console.log('sucesso')
+    },
+    failure: function(data) { 
+        alert('erro');
+    }
+}); 	
+});
+</script>
 {% endblock %}
